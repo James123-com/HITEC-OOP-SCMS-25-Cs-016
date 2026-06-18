@@ -1,47 +1,26 @@
-/**
- * @file Course.cpp
- * @brief Implementation of the Course class
- * @author Syed Muhammad Kashif | Roll No: 25-Cs-016
- * @course CS-202: Object-Oriented Programming
- * @inst HITEC University Taxila
- * @date 2026-06-18
- * 
- * OOP Concepts: Constructors, Operator Overloading, Friend Functions, Exception Handling, Aggregation
- */
-
 #include "Course.h"
 #include "../utils/Exceptions.h"
 #include <algorithm>
-
 Course::Course() : creditHours(0), instructor(nullptr), maxCapacity(0) {}
-
 Course::Course(std::string courseCode, std::string courseName, int creditHours,
                std::shared_ptr<Faculty> instructor, size_t maxCapacity)
     : courseCode(courseCode), courseName(courseName), creditHours(creditHours),
       instructor(instructor), maxCapacity(maxCapacity) {
-    
-    // Setup aggregation side-assignment
     if (instructor) {
         instructor->assignCourseCode(courseCode);
     }
 }
-
 void Course::enrollStudent(const std::shared_ptr<Student>& student) {
     if (!student) return;
-
-    // Check if student is already enrolled
     for (const auto& s : enrolledStudents) {
         if (s->getRollNo() == student->getRollNo()) return;
     }
-
     if (enrolledStudents.size() >= maxCapacity) {
         throw SCMS::CapacityExceededException(courseCode, maxCapacity);
     }
-
     enrolledStudents.push_back(student);
     student->addCourseCode(courseCode);
 }
-
 void Course::addWaitingStudent(const std::shared_ptr<Student>& student) {
     if (!student) return;
     for (const auto& s : waitingList) {
@@ -49,9 +28,7 @@ void Course::addWaitingStudent(const std::shared_ptr<Student>& student) {
     }
     waitingList.push_back(student);
 }
-
 void Course::removeStudent(const std::string& rollNo) {
-    // Remove from enrolled students
     auto itEnrolled = std::remove_if(enrolledStudents.begin(), enrolledStudents.end(),
         [&rollNo](const std::shared_ptr<Student>& s) {
             return s->getRollNo() == rollNo;
@@ -59,8 +36,6 @@ void Course::removeStudent(const std::string& rollNo) {
     if (itEnrolled != enrolledStudents.end()) {
         enrolledStudents.erase(itEnrolled, enrolledStudents.end());
     }
-
-    // Remove from waiting list
     auto itWaiting = std::remove_if(waitingList.begin(), waitingList.end(),
         [&rollNo](const std::shared_ptr<Student>& s) {
             return s->getRollNo() == rollNo;
@@ -69,15 +44,12 @@ void Course::removeStudent(const std::string& rollNo) {
         waitingList.erase(itWaiting, waitingList.end());
     }
 }
-
 bool Course::operator==(const Course& other) const {
     return this->courseCode == other.courseCode;
 }
-
 std::vector<std::shared_ptr<Student>> Course::operator+(const Course& other) const {
     std::vector<std::shared_ptr<Student>> mergedWaitingList = this->waitingList;
     for (const auto& student : other.waitingList) {
-        // Ensure no duplicates in merged list
         auto it = std::find_if(mergedWaitingList.begin(), mergedWaitingList.end(),
             [&student](const std::shared_ptr<Student>& s) {
                 return s->getRollNo() == student->getRollNo();
@@ -88,7 +60,6 @@ std::vector<std::shared_ptr<Student>> Course::operator+(const Course& other) con
     }
     return mergedWaitingList;
 }
-
 std::ostream& operator<<(std::ostream& os, const Course& course) {
     os << "Course Code: " << course.courseCode
        << " | Title: " << course.courseName
