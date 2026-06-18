@@ -142,7 +142,7 @@ inline void Library<Book>::loadFromCSV(const std::string& filepath) {
 
 template <>
 inline void Library<Journal>::saveToCSV(const std::string& filepath) {
-    std::ofstream outFile(filepath);
+    std::ofstream outFile(filepath, std::ios::app);
     if (!outFile.is_open()) {
         std::cerr << "Error: Could not open file " << filepath << " for writing.\n";
         return;

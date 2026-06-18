@@ -1,3 +1,7 @@
+type,itemID,title,author,publicationYear,isbn,genre,copiesAvailable
+Book,B001,C++ How to Program,Deitel & Deitel,2016,978-0134448237,Programming,5
+Book,B002,Effective Modern C++,Scott Meyers,2014,978-1491903995,Programming,3
+Book,B003,The C++ Programming Language,Bjarne Stroustrup,2013,978-0321563842,Programming,2
 type,itemID,title,author,publicationYear,issn,volume,issueNumber
 Journal,J001,IEEE Software,IEEE Computer Society,2024,0740-7459,41,3
 Journal,J002,ACM Computing Surveys,ACM,2023,0360-0300,55,8
