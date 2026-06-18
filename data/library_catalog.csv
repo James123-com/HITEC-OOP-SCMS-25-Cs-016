@@ -1,0 +1,3 @@
+type,itemID,title,author,publicationYear,issn,volume,issueNumber
+Journal,J001,IEEE Software,IEEE Computer Society,2024,0740-7459,41,3
+Journal,J002,ACM Computing Surveys,ACM,2023,0360-0300,55,8
