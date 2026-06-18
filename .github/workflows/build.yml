@@ -1,0 +1,16 @@
+name: Build SCMS
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install g++
+        run: sudo apt-get update && sudo apt-get install -y g++
+      - name: Compile
+        run: |
+          # Enable recursive globbing in bash and compile
+          shopt -s globstar
+          g++ -std=c++17 -Wall -Wextra src/**/*.cpp -o scms
+      - name: Smoke Test
+        run: echo 'Build successful'

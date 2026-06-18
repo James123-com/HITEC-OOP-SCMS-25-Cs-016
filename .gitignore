@@ -1,0 +1,29 @@
+# Compiled Object files
+*.slim
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+scms
+
+# IDE directories
+.vscode/
+.idea/
+.vs/
+build/
+bin/
+out/
